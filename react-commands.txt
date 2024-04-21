@@ -1,0 +1,5 @@
+Please install react-native-web@~0.19.6, react-dom@18.2.0, @expo/metro-runtime@~3.1.3 by running:  
+npx expo install react-native-web react-dom @expo/metro-runtime
+
+npx expo start --tunnel
+
