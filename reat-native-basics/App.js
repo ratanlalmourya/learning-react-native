@@ -1,17 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import HorizontalLine from './components/HorizontalLine';
+import FlexBoxLayout from './components/FlexBoxLayout';
 
 export default function App() {
   return (
-    <View style={styles.appContainer}>
-       <View style={styles.inputContainer}>
+    <>
+      <View style={styles.appContainer}>
+        <View style={styles.inputContainer}>
           <TextInput style={styles.textInput} placeholder='Your course goal' />
           <Button title='Add Goal' />
-       </View>
-       <View>
+        </View>
+        <View>
           <Text>List of goals</Text>
-       </View>
-    </View>
+        </View>
+      </View>
+      <HorizontalLine />
+      <FlexBoxLayout />
+    </>
+    
   );
 }
 
