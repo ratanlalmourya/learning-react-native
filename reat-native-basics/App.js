@@ -1,7 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import HorizontalLine from './components/HorizontalLine';
-import FlexBoxLayout from './components/FlexBoxLayout';
 
 export default function App() {
   return (
@@ -9,14 +6,13 @@ export default function App() {
       <View style={styles.appContainer}>
         <View style={styles.inputContainer}>
           <TextInput style={styles.textInput} placeholder='Your course goal' />
-          <Button title='Add Goal' />
+          {/* Button does not support styling  */}
+          <Button title='Add Goal' />     
         </View>
-        <View>
-          <Text>List of goals</Text>
+        <View style={styles.goalsContainer}>
+          <Text>List of goals ...  </Text>
         </View>
       </View>
-      <HorizontalLine />
-      <FlexBoxLayout />
     </>
     
   );
@@ -24,17 +20,27 @@ export default function App() {
 
 const styles = StyleSheet.create({
   appContainer: {
-    padding: 50
+    flex: 1
+,    paddingTop: 50,
+    paddingHorizontal: 16
   },
   inputContainer: {
+    flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#cccccc',
+    marginBottom: 24
   },
   textInput: {
     borderWidth: 1,
     borderColor: '#cccccc',
-    width: '80%',
+    width: '70%',
     marginRight: 8,
     padding: 8
+  },
+  goalsContainer: {
+    flex: 5
   }
 });
