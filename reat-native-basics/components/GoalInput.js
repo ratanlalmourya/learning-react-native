@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { StyleSheet, View, TextInput, Button,  } from "react-native"
+import { StyleSheet, View, TextInput, Button, Modal, } from "react-native"
 
 
-export default function GaolInput({onGoalAddHandler}) {
+export default function GaolInput({ onGoalAddHandler, visible }) {
 
-    const [enteredGoalText,setEnteredGoalText] = useState('');
-    
+    const [enteredGoalText, setEnteredGoalText] = useState('');
+
     function onGoalInputHandler(enteredText) {
         setEnteredGoalText(enteredText);
     }
@@ -15,19 +15,21 @@ export default function GaolInput({onGoalAddHandler}) {
         setEnteredGoalText('');
     }
 
-    return  (
-        <View style={styles.inputContainer}>
-            <TextInput 
-                style={styles.textInput} 
-                placeholder='Your course goal' 
-                onChangeText={onGoalInputHandler} 
-                value={enteredGoalText}
-            />
-            <Button 
-                title='Add Goal' 
-                onPress={addGoal} 
-            />     
-        </View>
+    return (
+        <Modal visible={visible} animationType="slide">
+            <View style={styles.inputContainer}>
+                <TextInput
+                    style={styles.textInput}
+                    placeholder='Your course goal'
+                    onChangeText={onGoalInputHandler}
+                    value={enteredGoalText}
+                />
+                <Button
+                    title='Add Goal'
+                    onPress={addGoal}
+                />
+            </View>
+        </Modal>
     )
 }
 
@@ -40,12 +42,12 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#cccccc',
         marginBottom: 24
-      },
-      textInput: {
+    },
+    textInput: {
         borderWidth: 1,
         borderColor: '#cccccc',
         width: '70%',
         marginRight: 8,
         padding: 8
-      },
+    },
 })
