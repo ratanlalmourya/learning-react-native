@@ -2,7 +2,7 @@ import { useState } from "react";
 import { StyleSheet, View, TextInput, Button, Modal, } from "react-native"
 
 
-export default function GaolInput({ onGoalAddHandler, visible }) {
+export default function GaolInput({ onGoalAddHandler, visible, onCancel }) {
 
     const [enteredGoalText, setEnteredGoalText] = useState('');
 
@@ -29,7 +29,7 @@ export default function GaolInput({ onGoalAddHandler, visible }) {
                         <Button title='Add Goal' onPress={addGoal} />
                     </View>
                     <View style={styles.button}>
-                        <Button title="Cancel" />
+                        <Button title="Cancel" onPress={onCancel}/>
                     </View>
                 </View>
             </View>
