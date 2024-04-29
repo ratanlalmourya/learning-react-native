@@ -24,10 +24,14 @@ export default function GaolInput({ onGoalAddHandler, visible }) {
                     onChangeText={onGoalInputHandler}
                     value={enteredGoalText}
                 />
-                <Button
-                    title='Add Goal'
-                    onPress={addGoal}
-                />
+                <View style={styles.buttonContainer}>
+                    <View style={styles.button}>
+                        <Button title='Add Goal' onPress={addGoal} />
+                    </View>
+                    <View style={styles.button}>
+                        <Button title="Cancel" />
+                    </View>
+                </View>
             </View>
         </Modal>
     )
@@ -36,18 +40,27 @@ export default function GaolInput({ onGoalAddHandler, visible }) {
 const styles = StyleSheet.create({
     inputContainer: {
         flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+        flexDirection: 'column',
+        justifyContent: 'center',
         alignItems: 'center',
         borderBottomWidth: 1,
         borderBottomColor: '#cccccc',
-        marginBottom: 24
+        marginBottom: 24,
+        padding: 16
     },
     textInput: {
         borderWidth: 1,
         borderColor: '#cccccc',
-        width: '70%',
-        marginRight: 8,
+        width: '100%',
         padding: 8
     },
+    buttonContainer: 
+    {
+        flexDirection: 'row',
+        marginTop: 8
+    },
+    button: {
+        width: "30%",
+        marginHorizontal: 8
+    }
 })
