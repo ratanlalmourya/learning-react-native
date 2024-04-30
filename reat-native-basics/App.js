@@ -2,6 +2,7 @@ import { StyleSheet, View, FlatList, Button } from 'react-native';
 import { useState } from 'react';
 import GoalItem from './components/GoalItem';
 import GaolInput from './components/GoalInput';
+import { StatusBar } from 'react-native';
 
 export default function App() {
   const [modelIsVisible,setModelVisible] = useState(false);
@@ -30,6 +31,7 @@ export default function App() {
   }
   return (
     <>
+      <StatusBar style="auto" />
       <View style={styles.appContainer}>
         <Button title='Add New Goal' color="#5e0acc" onPress={startAddGoalHandler} />
         { modelIsVisible && <GaolInput visible={modelIsVisible} onGoalAddHandler={addGoalHandler} onCancel={endAddGoalHandler} /> }
