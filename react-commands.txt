@@ -3,3 +3,5 @@ npx expo install react-native-web react-dom @expo/metro-runtime
 
 npx expo start --tunnel
 
+sudo npm install -g react-devtools
+
