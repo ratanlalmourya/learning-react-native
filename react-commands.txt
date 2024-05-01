@@ -5,3 +5,7 @@ npx expo start --tunnel
 
 sudo npm install -g react-devtools
 
+// install linear gradient via expo
+
+expo install expo-linear-gradient
+
