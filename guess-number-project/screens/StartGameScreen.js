@@ -3,7 +3,7 @@ import PrimaryButton from "../components/PrimaryButton";
 import { useState } from "react";
 
 
-function StartGameScreen() {
+function StartGameScreen({onPickedNumber}) {
 
     const [inputNumber,setInputNumber] = useState('');
 
@@ -24,6 +24,8 @@ function StartGameScreen() {
             )
             return;
         }
+
+        onPickedNumber(inputNumber);
     }
 
     function resetInputHandler() {
