@@ -6,22 +6,33 @@ import { ImageBackground } from 'react-native';
 import { useState } from 'react';
 import GameScreen from './screens/GameScreen';
 import Colors from './constants/colors';
+import GameOverScreen from './screens/GameOverScreen';
 
 export default function App() {
 
   const [userNumber , setUserNumber] = useState(null);
+  const [isGameOver, setIsGameOver] = useState(true);
 
   function pickedNumberHandler(pickerNumber) {
     setUserNumber(pickerNumber);
+    setIsGameOver(false);
+  }
+
+  function gameOverHandler() {
+    setIsGameOver(true);
   }
 
   let screen = <StartGameScreen onPickedNumber={pickedNumberHandler} />
 
   if(userNumber)
   {
-    screen = <GameScreen userNumber={userNumber} />
+    screen = <GameScreen onGameOver={gameOverHandler} userNumber={userNumber}  />
   }
 
+  if(isGameOver && userNumber)
+  {
+     screen = <GameOverScreen  />
+  }
 
   return (
     <LinearGradient colors={[Colors.primary700, Colors.accent500]} style={styles.rootScreen}>
