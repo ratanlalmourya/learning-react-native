@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { ImageBackground } from 'react-native';
 import { useState } from 'react';
 import GameScreen from './screens/GameScreen';
+import Colors from './constants/colors';
 
 export default function App() {
 
@@ -23,7 +24,7 @@ export default function App() {
 
 
   return (
-    <LinearGradient colors={['#4e0329','#ddb52f']} style={styles.rootScreen}>
+    <LinearGradient colors={[Colors.primary700, Colors.accent500]} style={styles.rootScreen}>
       <ImageBackground source={require('./assets/images/background.png')} 
           resizeMode="cover" 
           style={styles.rootScreen}
