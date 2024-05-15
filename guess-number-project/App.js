@@ -19,6 +19,7 @@ export default function App() {
   }
 
   function gameOverHandler() {
+    console.log("game over");
     setIsGameOver(true);
   }
 
