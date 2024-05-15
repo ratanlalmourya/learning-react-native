@@ -1,7 +1,10 @@
-import { Alert, StyleSheet, TextInput, View } from "react-native";
+import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 import PrimaryButton from "../components/ui/PrimaryButton";
 import { useState } from "react";
 import Colors from "../constants/colors";
+import Title from "../components/ui/title";
+import Card from "../components/ui/Card";
+import InstructionText from "../components/ui/InstrunctionText";
 
 
 function StartGameScreen({onPickedNumber}) {
@@ -35,7 +38,10 @@ function StartGameScreen({onPickedNumber}) {
     }
 
     return ( 
-            <View style={styles.inputContainer}>
+        <View style={styles.rootContainer}> 
+            <Title>Guess My Number</Title>
+            <Card>
+               <InstructionText>Enter a number</InstructionText>
                 <TextInput style={styles.numberInput} 
                            maxLength={2} 
                            keyboardType="number-pad"
@@ -52,7 +58,8 @@ function StartGameScreen({onPickedNumber}) {
                         <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
                     </View>
                  </View>
-            </View>
+            </Card>
+        </View>
     )
 }
 
@@ -60,19 +67,6 @@ function StartGameScreen({onPickedNumber}) {
 export default StartGameScreen;
 
 const styles = StyleSheet.create({
-    inputContainer: {
-        // flex: 1,
-        marginTop: 100,
-        padding: 16,
-        alignItems: "center",
-        backgroundColor: Colors.primary800,
-        marginHorizontal: 24,
-        borderRadius: 8,
-        elevation: 4,   // Android
-        shadowColor: 'black', // iOS
-        shadowOffset: {width: 0, height: 2}, // iOS,
-        shadowOpacity: 0.5, // iOS,
-    },
     numberInput: {
         height: 50,
         width: 50,
@@ -90,5 +84,10 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         flex: 1
+    },
+    rootContainer: {
+        flex: 1,
+        alignItems: "center",
+        marginTop: 100
     }
 })
