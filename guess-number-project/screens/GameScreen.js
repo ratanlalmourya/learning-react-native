@@ -29,7 +29,7 @@ function GameScreen({userNumber, onGameOver}) {
 
     useEffect(() => {
         if (currentGuess == userNumber) {
-            onGameOver();
+            onGameOver(guessRounds.length);
         }
     }, [currentGuess, userNumber, onGameOver]);
 
@@ -79,7 +79,7 @@ function GameScreen({userNumber, onGameOver}) {
                     </View>
                  </Card>
             </View>
-            <View>
+            <View style={styles.logList}>
                <FlatList data={guessRounds} 
                          renderItem={(guess) => <GuessLogItem roundNumber={guessRoundsListLength - guess.index} guess={guess.item}>{guess.item}</GuessLogItem>}
                          keyExtractor={(guess) => guess}/> 
@@ -103,5 +103,9 @@ const styles = StyleSheet.create({
     },
     instructionText: {
         marginBottom: 20
+    },
+    logList: {
+        padding: 16,
+        flex: 1
     }
 })
