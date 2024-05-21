@@ -15,6 +15,7 @@ export default function App() {
 
   const [userNumber , setUserNumber] = useState(null);
   const [isGameOver, setIsGameOver] = useState(true);
+  const [guessRounds, setGuessRounds] = useState(0);
 
   
   const [isFontLoaded] = useFonts({
@@ -33,6 +34,11 @@ export default function App() {
     setIsGameOver(true);
   }
 
+  function startNewGameHandler() {
+        setUserNumber(null);
+        setGuessRounds(0);
+  }
+
   let screen = <StartGameScreen onPickedNumber={pickedNumberHandler} />
 
   if(userNumber)
@@ -42,7 +48,7 @@ export default function App() {
 
   if(isGameOver && userNumber)
   {
-     screen = <GameOverScreen  />
+     screen = <GameOverScreen  userNumber={userNumber} roundsNumber={guessRounds} onStartNewGame={startNewGameHandler}  />
   }
 
   return (
