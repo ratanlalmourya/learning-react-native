@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Alert, FlatList } from "react-native";
+import { StyleSheet, Text, View, Alert, FlatList, useWindowDimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Title from "../components/ui/title";
 import { useEffect, useState } from "react";
@@ -25,7 +25,8 @@ function GameScreen({userNumber, onGameOver}) {
 
     const initialGuess = generateRandomBetween(1, 100, userNumber);
     const [currentGuess, setCurrentGuess] = useState(initialGuess);
-    const [guessRounds, setGuessRounds] = useState([initialGuess])
+    const [guessRounds, setGuessRounds] = useState([initialGuess]);
+    const { width , height } = useWindowDimensions();
 
     useEffect(() => {
         if (currentGuess == userNumber) {
@@ -58,27 +59,52 @@ function GameScreen({userNumber, onGameOver}) {
 
     const guessRoundsListLength = guessRounds.length;
 
+    var content = <>
+        <NumberContainer> {currentGuess} </NumberContainer>
+        <View>
+            <Card>
+                <InstructionText style={styles.instructionText}>Higher or lower ?</InstructionText>
+                <View style={styles.buttonGroup}>
+                    <View style={styles.buttonContainer}>
+                        <PrimaryButton onPress={nextGuessHandler.bind(this, "lower")}>
+                            <Ionicons name="md-remove" size={24} color="white" />
+                        </PrimaryButton>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <PrimaryButton onPress={nextGuessHandler.bind(this, "higher")} >
+                            <Ionicons name="md-add" size={24} color="white" />
+                        </PrimaryButton>
+                    </View>
+                </View>
+            </Card>
+        </View>
+    </>
+
+    if(width > 500)
+    {
+        content = <>
+            <InstructionText style={styles.instructionText}>Higher or lower ?</InstructionText>
+            <View style={styles.buttonContainerWide}>
+                <View style={styles.buttonContainer}>
+                    <PrimaryButton onPress={nextGuessHandler.bind(this, "lower")}>
+                        <Ionicons name="md-remove" size={24} color="white" />
+                    </PrimaryButton>
+                </View>
+                <NumberContainer> {currentGuess} </NumberContainer>
+                <View style={styles.buttonContainer}>
+                        <PrimaryButton onPress={nextGuessHandler.bind(this, "higher")} >
+                            <Ionicons name="md-add" size={24} color="white" />
+                        </PrimaryButton>
+                </View>
+
+            </View>
+        </>
+    }
+
     return (
         <View style={styles.screen}>
             <Title>Opponent's screen</Title>
-             <NumberContainer> {currentGuess} </NumberContainer>
-            <View>
-                 <Card>
-                    <InstructionText style={styles.instructionText}>Higher or lower ?</InstructionText>
-                    <View style={styles.buttonGroup}>
-                        <View style={styles.buttonContainer}>
-                            <PrimaryButton onPress={nextGuessHandler.bind(this, "lower")}>
-                                <Ionicons name="md-remove" size={24} color="white" />
-                            </PrimaryButton>
-                        </View>
-                        <View style={styles.buttonContainer}>
-                            <PrimaryButton onPress={nextGuessHandler.bind(this, "higher")} >
-                            <Ionicons name="md-add" size={24} color="white" />
-                            </PrimaryButton>
-                        </View>
-                    </View>
-                 </Card>
-            </View>
+            {content}
             <View style={styles.logList}>
                <FlatList data={guessRounds} 
                          renderItem={(guess) => <GuessLogItem roundNumber={guessRoundsListLength - guess.index} guess={guess.item}>{guess.item}</GuessLogItem>}
@@ -108,5 +134,9 @@ const styles = StyleSheet.create({
     logList: {
         padding: 16,
         flex: 1
+    },
+    buttonContainerWide: {
+        flexDirection: 'row',
+        alignItems: 'center'
     }
 })
