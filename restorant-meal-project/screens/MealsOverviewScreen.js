@@ -2,7 +2,7 @@
 import { MEALS, CATEGORIES } from "../dummy-data";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 
-import MealItem from "./MealItem";
+import MealItem from "../components/MealItem";
 import { useEffect, useLayoutEffect } from "react";
 
 function MealsOverviewScreen({ route, navigation }) {
@@ -23,7 +23,9 @@ function MealsOverviewScreen({ route, navigation }) {
     },[catId,navigation]);
 
     function renderMealItem(itemData) {
-        return <MealItem title={itemData.item.title} 
+        return <MealItem 
+                        id={itemData.item.id}
+                        title={itemData.item.title} 
                         imageURL={itemData.item.imageUrl}
                         duration={itemData.item.duration}
                         complexity={itemData.item.complexity}
