@@ -1,33 +1,36 @@
 import { NavigationContainer  } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+// import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import { Ionicons } from "@expo/vector-icons";
 import WelcomeScreen from './screens/WelcomeScreen';
 import UserScreen from './screens/UserScreen';
 
 
 
-const Drawer = createDrawerNavigator();
+
+const BottomTab = createBottomTabNavigator();
 
 export default function App() {
   return <NavigationContainer>
-    <Drawer.Navigator initialRouteName="Welcome" screenOptions={{
-        drawerActiveBackgroundColor: "#F0E1FF",
-        drawerActiveTintColor: "#3c0a6b",
+    <BottomTab.Navigator initialRouteName="Welcome" screenOptions={{
+        tabBarActiveTintColor: "#3c0a6b",
+        headerTintColor: "white",
+        headerStyle: {backgroundColor: "#3c0a6b"}
         // drawerStyle: {backgroundColor: "#ccc"}
     }}>
-      <Drawer.Screen name="Welcome" 
+      <BottomTab.Screen name="Welcome" 
                      component={WelcomeScreen}
-                     options={{
-                      headerStyle: {backgroundColor: "#3c0a6b"},
-                      headerTintColor: "white",
+                      options={{
                       drawerLabel: "Welcome Screen",
-                      drawerIcon: ({color,size}) => <Ionicons name="home" color={color} size={size} ></Ionicons>
-                     }}
-     />
-      <Drawer.Screen name="User" component={UserScreen} 
+                      tabBarIcon: ({color,size}) => <Ionicons name="home" color={color} size={size} ></Ionicons>
+                      }}
+      />
+      <BottomTab.Screen name="User" component={UserScreen} 
                     options={{
-                       drawerIcon: ({color,size}) => <Ionicons name="person" color={color} size={size}></Ionicons>
-                    }}/>
-    </Drawer.Navigator>
+                       tabBarIcon: ({color,size}) => <Ionicons name="person" color={color} size={size}></Ionicons>
+                    }}
+      />
+    </BottomTab.Navigator>
   </NavigationContainer>;
 }
