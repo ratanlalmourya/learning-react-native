@@ -9,3 +9,12 @@ sudo npm install -g react-devtools
 
 expo install expo-linear-gradient
 
+// if want to work in javascript with react native then running
+
+npx create-expo-app MyNewProject --template blank
+
+// if want to work in typescript with react native then
+
+npx create-expo-app@latest
+
+
