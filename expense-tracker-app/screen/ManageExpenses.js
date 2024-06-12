@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 
 import IconButton from "../components/ui/IconButton";
 import { GlobalStyles } from "../constants/styles";
+import Button from "../components/ui/Button";
 
 function ManageExpenses({route,navigation}) {
     const expenseId = route.params?.expensesId;
@@ -18,8 +19,20 @@ function ManageExpenses({route,navigation}) {
 
     }
 
+    function cancelHandler() {
+
+    }
+
+    function confirmHandler() {
+
+    }
+
     return (
         <View style={styles.container}>
+        <View style={styles.buttons}>
+            <Button style={styles.button} mode="flat" onPress={cancelHandler}>Cancel</Button>
+            <Button style={styles.button} onPress={confirmHandler}>{isEditing ? 'Update' : 'Add'}</Button>
+        </View>
         {   isEditing && 
             <View style={styles.deleteContainer}>
                 <IconButton 
@@ -48,5 +61,14 @@ const styles = StyleSheet.create({
         borderTopWidth: 2,
         borderTopColor: GlobalStyles.colors.primary200,
         alignItems: "center"
+    },
+    buttons: {
+        flexDirection: "row",
+        justifyContent:"center",
+        alignContent: "center"
+    },
+    button: {
+        minWidth: 120,
+        marginHorizontal: 8
     }
 })
