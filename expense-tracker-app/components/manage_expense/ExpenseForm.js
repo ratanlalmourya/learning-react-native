@@ -6,25 +6,25 @@ import Button from "../ui/Button";
 
 
 function ExpenseForm({submitButtonLabel, onCancel,onSubmit,defaultValue}) {
-    const [inputValues, setInputValues] = useState({
-        amount: defaultValue ? defaultValue.amount.toString() : '',
-        date: defaultValue ? defaultValue.date.toISOString().slice(0,10) : '',
-        description: defaultValue ? defaultValue.description : ''
+    const [inputs, setinputs] = useState({
+        amount: { value: defaultValue ? defaultValue.amount.toString() : '', isValid: true },
+        date: { value: defaultValue ? defaultValue.date.toISOString().slice(0,10) : '', isValid: true},
+        description: { value: defaultValue ? defaultValue.description : '', isValid: true}
     });
     function inputChangedHandler(inputIdentifier, enteredAmount) {
-        setInputValues((curInputValues) => {
+        setinputs((curInputs) => {
             return {
-                ...curInputValues,
-                [inputIdentifier]: enteredAmount
+                ...curInputs,
+                [inputIdentifier]: {value : enteredAmount, isValid: true }
             }
         });
     }
 
     function submitHandler(){
         const expenseData = {
-            amount: +inputValues.amount,
-            date: new Date(inputValues.date),
-            description: inputValues.description
+            amount: +inputs.amount.value,
+            date: new Date(inputs.date.value),
+            description: inputs.description.value
         }
 
         const amountIsValid = !isNaN(expenseData.amount) && expenseData.amount > 0;
@@ -32,12 +32,23 @@ function ExpenseForm({submitButtonLabel, onCancel,onSubmit,defaultValue}) {
         const descriptionIsValid = expenseData.description.trim().length > 0;
 
         if(!amountIsValid || !dateIsValid || !descriptionIsValid) {
-            Alert.alert("Invalid input ","Please check your input values ");
+            
+            setinputs((curInputs) => {
+                return {
+                    amount: { value : curInputs.amount.value, isValid: amountIsValid},
+                    date: { value : curInputs.date.value, isValid: dateIsValid},
+                    description: { value : curInputs.description.value, isValid: descriptionIsValid},
+                }
+            });
             return;
         }
 
         onSubmit(expenseData);
     }
+
+    const formIsInValid = !inputs.amount.isValid ||
+                          !inputs.date.isValid ||
+                          !inputs.description.isValid;
 
     return (
         <View style={styles.form}>
@@ -49,7 +60,7 @@ function ExpenseForm({submitButtonLabel, onCancel,onSubmit,defaultValue}) {
                     textInputConfig={{
                         keyboardType: "decimal-pad",
                         onChangeText: inputChangedHandler.bind(this, 'amount'),
-                        value: inputValues.amount
+                        value: inputs.amount.value
                     }}
                 />
                 <Input
@@ -59,7 +70,7 @@ function ExpenseForm({submitButtonLabel, onCancel,onSubmit,defaultValue}) {
                         placeholder: "YYYY-MM-DD",
                         maxLength: 10,
                         onChangeText: inputChangedHandler.bind(this, 'date'),
-                        value: inputValues.date
+                        value: inputs.date.value
                     }}
                 />
             </View>
@@ -70,9 +81,12 @@ function ExpenseForm({submitButtonLabel, onCancel,onSubmit,defaultValue}) {
                     autoCorrect: true,
                     autoCapitalize: true,
                     onChangeText: inputChangedHandler.bind(this, 'description'),
-                    value: inputValues.description
+                    value: inputs.description.value
                 }}
             />
+            {formIsInValid && (
+                <Text>Invalid input values - pleaes check your entered data!</Text>
+            )}
             <View style={styles.buttons}>
                 <Button style={styles.button} mode="flat" onPress={onCancel}>Cancel</Button>
                 <Button style={styles.button} onPress={submitHandler}>{submitButtonLabel}</Button>
