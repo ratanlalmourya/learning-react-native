@@ -37,6 +37,6 @@ const styles = StyleSheet.create({
     },
     inputMultiLine: {
         minHeight: 100,
-        textAlignVertical: 'top'
+        verticalAlign: 'top'
     }
 })
