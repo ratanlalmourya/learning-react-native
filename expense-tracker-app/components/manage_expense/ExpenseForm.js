@@ -12,7 +12,7 @@ function ExpenseForm({submitButtonLabel, onCancel,onSubmit}) {
         description: ''
     });
     function inputChangedHandler(inputIdentifier, enteredAmount) {
-        setAmountValue((curInputValues) => {
+        setInputValues((curInputValues) => {
             return {
                 ...curInputValues,
                 [inputIdentifier]: enteredAmount
@@ -21,7 +21,12 @@ function ExpenseForm({submitButtonLabel, onCancel,onSubmit}) {
     }
 
     function submitHandler(){
-        onSubmit();
+        const expenseData = {
+            amount: +inputValues.amount,
+            date: new Date(inputValues.date),
+            description: inputValues.description
+        }
+        onSubmit(expenseData);
     }
 
     return (
