@@ -2,6 +2,7 @@ import { StyleSheet, TextInput, View, Text, Alert } from "react-native";
 import Input from "./Input";
 import { useState } from "react";
 import Button from "../ui/Button";
+import { GlobalStyles } from "../../constants/styles";
 
 
 
@@ -57,6 +58,7 @@ function ExpenseForm({submitButtonLabel, onCancel,onSubmit,defaultValue}) {
                 <Input
                     style={styles.rowInput}
                     label="Amount"
+                    invalid={!inputs.amount.isValid}
                     textInputConfig={{
                         keyboardType: "decimal-pad",
                         onChangeText: inputChangedHandler.bind(this, 'amount'),
@@ -66,6 +68,7 @@ function ExpenseForm({submitButtonLabel, onCancel,onSubmit,defaultValue}) {
                 <Input
                     style={styles.rowInput}
                     label="Date"
+                    invalid={!inputs.date.isValid}
                     textInputConfig={{
                         placeholder: "YYYY-MM-DD",
                         maxLength: 10,
@@ -76,6 +79,7 @@ function ExpenseForm({submitButtonLabel, onCancel,onSubmit,defaultValue}) {
             </View>
             <Input
                 label="Description"
+                invalid={!inputs.description.isValid}
                 textInputConfig={{
                     multiline: true,
                     autoCorrect: true,
@@ -85,7 +89,7 @@ function ExpenseForm({submitButtonLabel, onCancel,onSubmit,defaultValue}) {
                 }}
             />
             {formIsInValid && (
-                <Text>Invalid input values - pleaes check your entered data!</Text>
+                <Text style={styles.errorText}>Invalid input values - pleaes check your entered data!</Text>
             )}
             <View style={styles.buttons}>
                 <Button style={styles.button} mode="flat" onPress={onCancel}>Cancel</Button>
@@ -124,5 +128,10 @@ const styles = StyleSheet.create({
     button: {
         minWidth: 120,
         marginHorizontal: 8
+    },
+    errorText: {
+        textAlign: 'center',
+        color: GlobalStyles.colors.error500,
+        margin: 8
     }
 })
