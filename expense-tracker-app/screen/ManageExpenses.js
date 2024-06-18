@@ -38,8 +38,8 @@ function ManageExpenses({route,navigation}) {
                 expenseData
             );
         }else{  
-            storeExpense(expenseData);
-            expenseCtx.addExpense(expenseData);
+            const id = storeExpense(expenseData);
+            expenseCtx.addExpense({...expenseData,id: id});
         }
         navigation.goBack();
     }
