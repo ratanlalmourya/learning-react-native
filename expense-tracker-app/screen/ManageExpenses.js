@@ -7,6 +7,7 @@ import { ExpenesesContext } from "../store/expenses-context";
 import ExpenseForm from "../components/manage_expense/ExpenseForm";
 import {storeExpense, updateExpense, deleteExpense } from "../util/http";
 import LoadingOverlay from "../components/ui/loading-overlay";
+import ErrorOverlay from "../components/ui/error_overlay";
 
 function ManageExpenses({route,navigation}) {
     const expenseId = route.params?.expensesId;
