@@ -3,6 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator  } from '@react-navigation/native-stack';
 import AllPlaces from './screens/allplaces';
 import AddPlace from './screens/addplace';
+import { Text } from 'react-native';
+import IconButton from './components/ui/iconButton';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -12,7 +15,13 @@ export default function App() {
       <StatusBar style='dark' />  
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name='AllPlaces' component={AllPlaces} />
+          <Stack.Screen 
+            name='AllPlaces' 
+            component={AllPlaces} 
+            options={({navigation}) => ({
+              headerRight: ({tintColor}) => <IconButton icon="add" size={24} color={tintColor} onPress={() => navigation.navigate('AddPlace')} />
+            })}
+          />
           <Stack.Screen name='AddPlace' component={AddPlace} />
         </Stack.Navigator>
       </NavigationContainer>
