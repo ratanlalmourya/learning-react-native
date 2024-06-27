@@ -1,11 +1,13 @@
-import { Alert, Button, StyleSheet, View } from "react-native";
+import { Alert, Button, Image, StyleSheet, Text, View } from "react-native";
 import { getCurrentPositionAsync, useForegroundPermissions, PermissionStatus } from "expo-location";
 
 import OutlineButton from "../ui/outlinButton";
 import { Colors } from "../../constants/colors";
+import { useState } from "react";
+import getMapPreview from "../../util/location";
 
 function LocationPicker() { 
-
+    const [pickedLocation,setPickedLocation] = useState();
     const [locationPermissionInformation, requestPermisson ] = useForegroundPermissions();
     async function verifyPermission() {
         if(locationPermissionInformation.status === PermissionStatus.UNDETERMINED ){
@@ -32,7 +34,10 @@ function LocationPicker() {
             return;
         }
         const location = await  getCurrentPositionAsync();
-
+        setPickedLocation({
+            lat: location.coords.latitude,
+            lng: location.coords.longitude
+        })
         console.log("Location ", location);
     }
 
@@ -40,10 +45,16 @@ function LocationPicker() {
 
     }
 
+    let locationPreview = <Text>No location picked yet</Text>;
+    if(pickedLocation) {    
+        
+        locationPreview = <Image style={styles.image} source={{ uri: getMapPreview(pickedLocation.lat,pickedLocation.lng) }} />;
+    }
+
     return (
         <View>
             <View style={styles.mapPreview}>
-
+                {locationPreview}
             </View>
             <View style={styles.actions}>
                 <OutlineButton icon="location" onPress={getLocationHandler}>Locate User</OutlineButton>
@@ -63,12 +74,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: Colors.primary100,
-        borderRadius: 4
+        borderRadius: 4,
+        overflow: 'hidden'
     },
     actions: {
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center'
     },
+    image: {
+        width: '100%',
+        height: '100%',
+    }
 
 })
