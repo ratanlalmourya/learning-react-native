@@ -10,7 +10,7 @@ function PlaceForm() {
     const [enteredTitle,setEnteredTitle] = useState('');
 
     function changedTitleHandler(eneteredTitle) {
-        setEnteredTitle(enteredTitle);
+        setEnteredTitle(eneteredTitle);
     }
     return (
        <ScrollView style={styles.form}>

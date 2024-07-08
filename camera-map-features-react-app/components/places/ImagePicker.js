@@ -9,18 +9,19 @@ function ImagePicker() {
     const [pickedImage,setPickedImage] = useState(null);
     const [cameraPermissionInformation,requestPermisson] = useCameraPermissions();
 
-    async function verifyPermissions() {
+    async function verifyPermissions() {    
+       
         if(cameraPermissionInformation.status === PermissionStatus.UNDETERMINED ){
             const permissonResponse = await requestPermisson();
             return permissonResponse.granted;
         }
 
         if(cameraPermissionInformation.status === PermissionStatus.DENIED ){
+            console.log("Alert");
             Alert.alert(
                 'Insufficient Permissons!',
                 'You need to grant  camera permissons to use this app.'
             )
-
             return false;
         }
 
@@ -29,7 +30,7 @@ function ImagePicker() {
 
     async function takeImageHandler() { 
         const hasPermission = await verifyPermissions();    
-        
+        console.log("hasPermission ",hasPermission);
         if(!hasPermission) {
             return;
         }   
@@ -42,7 +43,7 @@ function ImagePicker() {
     }   
 
     let ImagePreview = <Text>No Image Taken Yet.</Text>;
-    console.log(pickedImage)
+    console.log("PickedImage",pickedImage)
     if(pickedImage) {
         ImagePreview = <Image source={{ uri : pickedImage }} style={styles.image} />
     }
