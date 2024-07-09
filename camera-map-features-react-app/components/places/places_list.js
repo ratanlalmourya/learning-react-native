@@ -16,12 +16,16 @@ function PlacesList({places}) {
                 data={places}
                 keyExtractor={(item) => item.id }
                 renderItem={({item}) => <PlaceItem place={item}  />}
+                style={styles.list}
              />
 }
 
 export default PlacesList;
 
 const styles = StyleSheet.create({
+        list: {
+            margin: 16
+        },
         fallBackContainer: {
             flex: 1,
             justifyContent: "center",
