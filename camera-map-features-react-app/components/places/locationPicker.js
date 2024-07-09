@@ -4,7 +4,7 @@ import { getCurrentPositionAsync, useForegroundPermissions, PermissionStatus } f
 import OutlineButton from "../ui/outlinButton";
 import { Colors } from "../../constants/colors";
 import { useEffect, useState } from "react";
-import getMapPreview from "../../util/location";
+import { getAddress, getMapPreview } from "../../util/location";
 import { useIsFocused, useNavigation, useRoute } from "@react-navigation/native";
 
 function LocationPicker({onPickLocation}) { 
@@ -22,8 +22,14 @@ function LocationPicker({onPickLocation}) {
         }
     },[route,isFocused]);
 
-    useEffect(() => {
-        onPickLocation(pickedLocation)
+    useEffect(() => {   
+        async function handleLocation() {
+            if(pickedLocation) {
+                const address = await getAddress(pickedLocation.lat,pickedLocation.lng);
+                onPickLocation({...pickedLocation,address:address})
+            }
+        }
+        handleLocation();
     },[pickedLocation,onPickLocation])
 
     async function verifyPermission() {
