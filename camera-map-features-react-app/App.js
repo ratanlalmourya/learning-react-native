@@ -3,24 +3,52 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AllPlaces from './screens/allplaces';
 import AddPlace from './screens/addplace';
-import { Text } from 'react-native';
 import IconButton from './components/ui/iconButton';
 import { Colors } from './constants/colors';
 import Map from './screens/map';
+import { useCallback, useEffect, useState } from 'react';
+import { init } from './util/database';
+import * as SplashScreen from 'expo-splash-screen';
+import { View } from 'react-native';
 
-
+SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+
+export default function App() { 
+
+  const [dbInitialized, setDbInitialized] = useState(false);
+
+  useEffect(() => { 
+    init().then(() => {
+      setDbInitialized(true);
+    }).catch(err => { 
+      console.log("adasdfa",err);
+    });
+  },[]);
+
+  if(!dbInitialized) {
+    return null;
+  }
+
+
+  const onLayoutRootView = useCallback(async () => {
+    if (dbInitialized) {
+      await SplashScreen.hideAsync();
+    }
+  }, [dbInitialized]);
+
+
+
   return (
-    <>
+    <View onLayout={onLayoutRootView} style={{flex: 1}} >
       <StatusBar style='dark' />
       <NavigationContainer>
         <Stack.Navigator  
           screenOptions={{
             headerStyle: {backgroundColor: Colors.primary500},
             headerTintColor: Colors.gray700,
-            contentStyle: {backgroundColor: Colors.gray700 }
+            contentStyle: {backgroundColor: Colors.gray700}
           }}
         >
           <Stack.Screen
@@ -41,7 +69,7 @@ export default function App() {
           <Stack.Screen name='Map' component={Map} />
         </Stack.Navigator>
       </NavigationContainer>
-    </>
+    </View>
   );
 }
 
