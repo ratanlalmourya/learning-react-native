@@ -57,6 +57,7 @@ export function insertPlace(place) {
   return promise;
 }
 
+
 export function fetchPlaces() {
   const promise = new Promise(async (resolve, reject) => {
     await db.withTransactionAsync(async () => {
@@ -78,6 +79,24 @@ export function fetchPlaces() {
         });
     });
   });
+
+  return promise;
+}
+
+export function fetchPlaceDetails(id) {
+  const promise = new Promise((resolve,reject) => {
+    db.withTransactionAsync(async () => {
+      await db.getAllAsync(
+        `SELECT * FROM newplaces WHERE id = ?`,[id]
+      ).then((result) => {
+        console.log("fetchPlaceDetails ",result[0]);
+        resolve(result[0]);
+      }).catch((error) => {
+        console.log("Error - fetchPlaceDetails",error);
+        reject(error)
+      })
+    })
+  })
 
   return promise;
 }
