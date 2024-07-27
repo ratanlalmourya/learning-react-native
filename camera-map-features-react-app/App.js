@@ -19,23 +19,22 @@ export default function App() {
 
   const [dbInitialized, setDbInitialized] = useState(false);
 
-  useEffect(() => { 
-    init().then(() => {
-      setDbInitialized(true);
-    }).catch(err => { 
-      console.log("adasdfa",err);
-    });
-  },[]);
+  if(!dbInitialized) {
+    useEffect(() => { 
+      init().then(() => {
+        setDbInitialized(true);
+      }).catch(() => {
+        console.log("Database initialization failed");
+      });
+    },[]);
+  }
 
   if(!dbInitialized) {
     return null;
   }
 
-
   const onLayoutRootView = useCallback(async () => {
-    if (dbInitialized) {
       await SplashScreen.hideAsync();
-    }
   }, [dbInitialized]);
 
 
