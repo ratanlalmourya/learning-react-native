@@ -29,7 +29,8 @@
         {
           "cameraPermission": "The app need access to your camera in order to take photos of your  favorites places."
         }
-      ]
+      ],
+      "expo-asset"
     ]
   }
 }
