@@ -3,7 +3,7 @@ import PlacesList from "../components/places/places_list";
 import { useIsFocused } from "@react-navigation/native";
 import { fetchPlaces } from "../util/database";
 
-function AllPlaces({route}) {
+function AllPlaces() {
 
     const [loadedPlaces, setLoadedPlaces] = useState([]);
     const isFocused = useIsFocused();

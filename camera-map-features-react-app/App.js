@@ -10,6 +10,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { init } from './util/database';
 import * as SplashScreen from 'expo-splash-screen';
 import { View } from 'react-native';
+import PlaceDetails from './screens/placesdetails';
 
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
@@ -61,7 +62,7 @@ export default function App() {
               headerRight: ({ tintColor }) => <IconButton icon="add" size={24} color={tintColor} onPress={() => navigation.navigate('AddPlace')} />
             })}
           />
-          <Stack.Screen
+          <Stack.Screen 
             name='AddPlace'
             component={AddPlace}
             options={{
@@ -69,6 +70,7 @@ export default function App() {
             }}
           />
           <Stack.Screen name='Map' component={Map} />
+          <Stack.Screen name='PlaceDetails' component={PlaceDetails} />
         </Stack.Navigator>
       </NavigationContainer>
     </View>
