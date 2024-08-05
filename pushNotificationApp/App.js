@@ -11,14 +11,25 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function App() {
-  useEffect(() => {
+export default function App() { 
+
+  useEffect(() => { 
+    const subscription = Notifications.addNotificationReceivedListener((notification) => {
+      console.log("NOTIFICATION RECEIVED");
+      console.log(notification);
+      console.log(notification.request.content.data.userName);
+    });
+    
     (async () => {
       const { status } = await Notifications.getPermissionsAsync();
       if (status !== 'granted') {
         await Notifications.requestPermissionsAsync();
       }
     })();
+
+    return () => {
+      subscription.remove();
+    }
   }, []);
 
   async function scheduleNotification() {
